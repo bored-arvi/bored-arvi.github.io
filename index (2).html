@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Name — Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #e8e4dc;
+    --text-muted: #7a7570;
+    --text-dim: #4a4642;
+    --accent: #c8b89a;
+    --accent2: #8a9e8a;
+    --link: #b8a882;
+    --tag-bg: rgba(200,184,154,0.08);
+    --tag-color: #7a6e5e;
+    --serif: 'Spectral', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.75;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── SKIP LINK ── */
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 1rem; top: 1rem; z-index: 100; }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 5rem 2rem 8rem;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .header-text { flex: 1; }
+
+  .header h1 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .header .role {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .header .bio {
+    font-size: 0.975rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .header .bio strong { font-weight: 600; color: var(--accent); }
+
+  .header .links {
+    font-size: 0.85rem;
+    font-family: var(--mono);
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.2rem;
+  }
+
+  .header .links a { color: var(--text-muted); }
+  .header .links a:hover { color: var(--text); }
+  .header .links span { color: var(--text-dim); }
+
+  .header .labs {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-family: var(--mono);
+  }
+
+  .header .labs a { color: var(--text-dim); }
+  .header .labs a:hover { color: var(--text-muted); }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 0.85;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  /* ── SECTIONS ── */
+  section { margin-bottom: 3.5rem; }
+
+  section > h2 {
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── RESEARCH / PROJECT ITEMS ── */
+  .item { margin-bottom: 2rem; }
+  .item:last-child { margin-bottom: 0; }
+
+  .item h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.005em;
+  }
+
+  .item .desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .item-links {
+    font-size: 0.82rem;
+    font-family: var(--mono);
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .item-links a { color: var(--text-dim); }
+  .item-links a:hover { color: var(--text-muted); }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 1.1rem;
+    margin-bottom: 1.75rem;
+    align-items: start;
+  }
+
+  .exp-item:last-child { margin-bottom: 0; }
+
+  .exp-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    margin-top: 0.15rem;
+    filter: grayscale(100%) brightness(0.5);
+    opacity: 0.7;
+  }
+
+  .exp-logo-placeholder {
+    width: 36px;
+    height: 36px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .exp-body {}
+
+  .exp-title {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.1rem;
+  }
+
+  .exp-meta {
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+  }
+
+  .exp-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── WRITING ── */
+  .writing-item {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .writing-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .writing-link {
+    font-size: 0.975rem;
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .writing-link:hover { color: var(--accent); text-decoration: none; }
+
+  .writing-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .writing-status {
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    color: var(--text-dim);
+  }
+
+  .writing-all {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    font-family: var(--mono);
+  }
+
+  /* ── HONORS ── */
+  .honor {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .honor:last-child { margin-bottom: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    color: var(--text-dim);
+  }
+
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--text-muted); }
+
+  /* ── WRITING MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 50;
+    overflow-y: auto;
+    padding: 3rem 1rem;
+  }
+
+  .modal-overlay.open { display: block; }
+
+  .modal {
+    max-width: 660px;
+    margin: 0 auto;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+  }
+
+  .modal-close {
+    float: right;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+    margin: 0 0 1rem 1rem;
+  }
+
+  .modal-close:hover { color: var(--text-muted); }
+
+  .modal-status {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .modal-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
+  .modal-body h1, .modal-body h2, .modal-body h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--text);
+    margin: 1.5rem 0 0.5rem;
+  }
+  .modal-body h1 { font-size: 1.4rem; margin-top: 0; }
+  .modal-body h2 { font-size: 1.1rem; }
+  .modal-body h3 { font-size: 1rem; }
+  .modal-body p { margin-bottom: 1rem; }
+  .modal-body code {
+    font-family: var(--mono);
+    font-size: 0.82em;
+    background: var(--bg3);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+  .modal-body pre {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .modal-body pre code { background: none; padding: 0; }
+  .modal-body blockquote {
+    border-left: 2px solid var(--border-hover);
+    padding-left: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  .modal-body a { color: var(--link); }
+  .modal-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  .loading-text {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  /* ── CONFIG BANNER ── */
+  .config-banner {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .config-banner strong { color: var(--accent); }
+  .config-banner code { color: var(--text-muted); background: var(--bg3); padding: 0.1em 0.3em; border-radius: 2px; }
+
+  @media (max-width: 520px) {
+    .page { padding: 3rem 1.25rem 6rem; }
+    .header { flex-direction: column-reverse; gap: 1rem; }
+    .avatar { width: 56px; height: 56px; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-logo, .exp-logo-placeholder { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip">Skip to content</a>
+
+<main id="main" class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-text">
+      <h1>Your Name</h1>
+      <p class="role">Researcher · Your Institution</p>
+      <p class="bio">
+        I work on <strong>your research area</strong> and <strong>another research area</strong> —
+        systems that respect structure: fill in your focus here. Recent work spans
+        your recent projects, papers, and interests.
+      </p>
+      <p class="header-text" style="font-size:0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+        <a href="#">Full site →</a>
+      </p>
+      <p class="links">
+        <a href="mailto:you@example.com">Email</a>
+        <span> / </span>
+        <a href="#">Scholar</a>
+        <span> / </span>
+        <a href="#">GitHub</a>
+        <span> / </span>
+        <a href="#">LinkedIn</a>
+      </p>
+      <p class="labs">Lab affiliations: <a href="#">Lab A</a>, <a href="#">Lab B</a></p>
+    </div>
+    <img src="https://via.placeholder.com/72" alt="Your Name" class="avatar" id="avatar-img" />
+  </header>
+
+  <!-- ── RESEARCH ── -->
+  <section id="research">
+    <h2>Research</h2>
+
+    <div class="item">
+      <h3>Your First Research Project</h3>
+      <p class="desc">A brief description of your research — what it does, what problem it solves, and why it matters. Co-authored manuscript in preparation.</p>
+      <div class="tags">
+        <span class="tag">Area One</span>
+        <span class="tag">Area Two</span>
+        <span class="tag">Method</span>
+      </div>
+      <div class="item-links">
+        <a href="#">overview</a>
+        <a href="#">code</a>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>Your Second Research Project</h3>
+      <p class="desc">A brief description of your second research project. Include the key contribution and any notable results or publications.</p>
+      <div class="tags">
+        <span class="tag">Topic A</span>
+        <span class="tag">Topic B</span>
+      </div>
+      <div class="item-links">
+        <a href="#">overview</a>
+        <a href="#">paper</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="item">
+      <h3>Your Side Project</h3>
+      <p class="desc">A description of your project — what it does, how you built it, and any interesting outcomes. Built with some technologies, runner-up at some competition.</p>
+      <div class="tags">
+        <span class="tag">Tech A</span>
+        <span class="tag">Tech B</span>
+        <span class="tag">Domain</span>
+      </div>
+      <div class="item-links">
+        <a href="#">overview</a>
+        <a href="#">code</a>
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>Another Project</h3>
+      <p class="desc">Real-time telemetry, data pipelines, or whatever your second project is. Briefly describe the hardware, software, and stack you used.</p>
+      <div class="tags">
+        <span class="tag">Hardware</span>
+        <span class="tag">API</span>
+        <span class="tag">Stack</span>
+      </div>
+      <div class="item-links">
+        <a href="#">overview</a>
+        <a href="#">code</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="exp-item">
+      <div class="exp-logo-placeholder">NEW</div>
+      <div class="exp-body">
+        <p class="exp-title">Incoming Role · Organization</p>
+        <p class="exp-meta">Summer 2026</p>
+        <p class="exp-desc">Brief description of your upcoming role.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo-placeholder">ORG</div>
+      <div class="exp-body">
+        <p class="exp-title">Research Assistant · Lab Name</p>
+        <p class="exp-meta">2025 – Present</p>
+        <p class="exp-desc">Description of your research, the lab, and your contributions.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo-placeholder">YC</div>
+      <div class="exp-body">
+        <p class="exp-title">Founding Engineer · Startup Name</p>
+        <p class="exp-meta">2024, 2025</p>
+        <p class="exp-desc">What you built, the tech stack, and scale.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo-placeholder">UNI</div>
+      <div class="exp-body">
+        <p class="exp-title">Undergraduate Research · Lab, University</p>
+        <p class="exp-meta">2022 – 2024</p>
+        <p class="exp-desc">Research focus and the lab's core work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WRITING ── -->
+  <section id="writing">
+    <h2>Writing</h2>
+
+    <div class="config-banner" id="github-config-banner">
+      <strong>Configure GitHub writing source</strong><br>
+      Edit the <code>GITHUB_CONFIG</code> object at the top of this page's <code>&lt;script&gt;</code> to point to your repo.<br>
+      Set <code>user</code>, <code>repo</code>, and <code>folder</code> — any <code>.md</code> file you add to that folder will appear here automatically.
+    </div>
+
+    <div id="writing-list">
+      <p class="loading-text">Loading posts…</p>
+    </div>
+
+    <p class="writing-all"><a href="#" id="all-writing-link">All writing →</a></p>
+  </section>
+
+  <!-- ── HONORS ── -->
+  <section id="honors">
+    <h2>Honors</h2>
+    <p class="honor">2023 Your Fellowship Name</p>
+    <p class="honor">2023 Your Grant or Award</p>
+    <p class="honor">2022 Another Honor</p>
+  </section>
+
+  <footer>
+    <span>© 2026 Your Name</span>
+    <a href="#">Full site →</a>
+  </footer>
+
+</main>
+
+<!-- ── POST MODAL ── -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close post">✕</button>
+    <p class="modal-status" id="modal-status"></p>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   GITHUB CONFIG — edit this to point to your repo
+   ═══════════════════════════════════════════════ */
+const GITHUB_CONFIG = {
+  user:   'your-github-username',   // e.g. 'rlogger'
+  repo:   'your-repo-name',         // e.g. 'my-site'
+  folder: 'writing',                // folder containing .md files
+  branch: 'main',                   // branch to read from
+};
+/* ═══════════════════════════════════════════════ */
+
+const RAW = (path) =>
+  `https://raw.githubusercontent.com/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${path}`;
+const API = (path) =>
+  `https://api.github.com/repos/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/contents/${path}?ref=${GITHUB_CONFIG.branch}`;
+
+async function loadWriting() {
+  const list = document.getElementById('writing-list');
+  const banner = document.getElementById('github-config-banner');
+
+  if (GITHUB_CONFIG.user === 'your-github-username') {
+    list.innerHTML = `
+      <div class="writing-item">
+        <a href="#" class="writing-link" onclick="return false">Example Post Title</a>
+        <p class="writing-desc">This is a placeholder post. Configure GITHUB_CONFIG above to load real posts from your GitHub folder.</p>
+        <p class="writing-status">example</p>
+      </div>
+      <div class="writing-item">
+        <a href="#" class="writing-link" onclick="return false">Another Example Post</a>
+        <p class="writing-desc">Add .md files to your GitHub folder and they will appear here automatically.</p>
+        <p class="writing-status">example</p>
+      </div>`;
+    return;
+  }
+
+  banner.style.display = 'none';
+
+  try {
+    const res = await fetch(API(GITHUB_CONFIG.folder));
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    const files = await res.json();
+
+    const mds = files
+      .filter(f => f.name.endsWith('.md'))
+      .sort((a, b) => b.name.localeCompare(a.name));
+
+    if (!mds.length) {
+      list.innerHTML = `<p class="loading-text" style="text-align:left">No .md files found in <code>${GITHUB_CONFIG.folder}/</code>.</p>`;
+      return;
+    }
+
+    // Fetch frontmatter/preview for each file
+    const posts = await Promise.all(mds.map(async (f) => {
+      try {
+        const raw = await fetch(RAW(f.path));
+        const text = await raw.text();
+        return parsePost(f.name.replace(/\.md$/, ''), text);
+      } catch {
+        return { slug: f.name.replace(/\.md$/, ''), title: titleize(f.name.replace(/\.md$/, '')), desc: '', status: '', raw: '' };
+      }
+    }));
+
+    list.innerHTML = posts.map(p => `
+      <div class="writing-item">
+        <a href="#" class="writing-link" data-slug="${p.slug}">${p.title}</a>
+        ${p.desc ? `<p class="writing-desc">${p.desc}</p>` : ''}
+        ${p.status ? `<p class="writing-status">${p.status}</p>` : ''}
+      </div>`).join('');
+
+    // Store posts for modal
+    window._posts = Object.fromEntries(posts.map(p => [p.slug, p]));
+
+    list.querySelectorAll('[data-slug]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        openPost(a.dataset.slug);
+      });
+    });
+  } catch (err) {
+    list.innerHTML = `<p class="loading-text" style="text-align:left; color: var(--text-muted)">Could not load posts — check your GitHub config.<br><small>${err.message}</small></p>`;
+  }
+}
+
+function parsePost(slug, raw) {
+  let title = titleize(slug);
+  let desc = '';
+  let status = '';
+  let body = raw;
+
+  // Parse YAML-ish frontmatter
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (fmMatch) {
+    const fm = fmMatch[1];
+    body = fmMatch[2];
+    const get = (key) => { const m = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm')); return m ? m[1].trim().replace(/^['"]|['"]$/g,'') : ''; };
+    title = get('title') || title;
+    desc = get('description') || get('desc') || get('subtitle') || '';
+    status = get('status') || get('draft') || '';
+  } else {
+    // First H1 as title fallback
+    const h1 = raw.match(/^#\s+(.+)$/m);
+    if (h1) title = h1[1];
+    // First non-heading paragraph as desc
+    const lines = raw.split('\n').filter(l => l.trim() && !l.startsWith('#'));
+    if (lines[0]) desc = lines[0].replace(/[*_`]/g, '').slice(0, 120) + (lines[0].length > 120 ? '…' : '');
+  }
+
+  return { slug, title, desc, status, raw: body };
+}
+
+function titleize(slug) {
+  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function openPost(slug) {
+  const post = window._posts?.[slug];
+  if (!post) return;
+  const overlay = document.getElementById('modal-overlay');
+  const body = document.getElementById('modal-body');
+  const status = document.getElementById('modal-status');
+  body.innerHTML = marked.parse(post.raw);
+  status.textContent = post.status || '';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+loadWriting();
+</script>
+</body>
+</html>

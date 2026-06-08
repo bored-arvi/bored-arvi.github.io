@@ -715,24 +715,58 @@ function titleize(slug) {
 function openPost(slug) {
   const post = window._posts?.[slug];
   if (!post) return;
-  const overlay = document.getElementById('modal-overlay');
-  const body = document.getElementById('modal-body');
-  const status = document.getElementById('modal-status');
-  body.innerHTML = marked.parse(post.raw);
-  status.textContent = post.status || '';
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>${post.title}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:rgba(255,255,255,0.07);--border-hover:rgba(255,255,255,0.14);--text:#e8e4dc;--text-muted:#7a7570;--text-dim:#4a4642;--accent:#c8b89a;--link:#b8a882;--serif:'Spectral',Georgia,serif;--mono:'DM Mono',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:17px;line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased;}
+a{color:var(--link);text-decoration:none;}
+a:hover{text-decoration:underline;text-underline-offset:3px;}
+.page{max-width:680px;margin:0 auto;padding:5rem 2rem 8rem;}
+.back{font-family:var(--mono);font-size:0.8rem;color:var(--text-dim);display:inline-block;margin-bottom:3rem;}
+.back:hover{color:var(--text-muted);}
+.post-status{font-family:var(--mono);font-size:0.75rem;color:var(--text-dim);margin-bottom:2rem;}
+.post-body{font-size:0.9rem;color:var(--text-muted);line-height:1.85;}
+.post-body h1,.post-body h2,.post-body h3{font-family:var(--serif);font-weight:400;color:var(--text);margin:1.5rem 0 0.5rem;}
+.post-body h1{font-size:1.6rem;margin-top:0;}
+.post-body h2{font-size:1.2rem;}
+.post-body h3{font-size:1rem;}
+.post-body p{margin-bottom:1rem;}
+.post-body code{font-family:var(--mono);font-size:0.82em;background:var(--bg3);padding:0.1em 0.3em;border-radius:2px;color:var(--accent);}
+.post-body pre{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1rem;overflow-x:auto;margin:1rem 0;}
+.post-body pre code{background:none;padding:0;}
+.post-body blockquote{border-left:2px solid var(--border-hover);padding-left:1rem;color:var(--text-dim);font-style:italic;margin:1rem 0;}
+.post-body a{color:var(--link);}
+.post-body hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+.post-body img{max-width:100%;border-radius:3px;margin:1rem 0;}
+@media(max-width:520px){.page{padding:3rem 1.25rem 6rem;}}
+</style>
+</head>
+<body>
+<main class="page">
+<a href="javascript:history.back()" class="back">← back</a>
+${post.status ? `<p class="post-status">${post.status}</p>` : ''}
+<div class="post-body" id="body"></div>
+</main>
+<script>
+document.getElementById('body').innerHTML = marked.parse(${JSON.stringify(post.raw)});
+<\/script>
+</body>
+</html>`;
 
-document.getElementById('modal-close').addEventListener('click', closeModal);
-document.getElementById('modal-overlay').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
 }
 
 loadWriting();

@@ -44,11 +44,9 @@
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-  /* ── SKIP LINK ── */
   .skip { position: absolute; left: -9999px; }
   .skip:focus { left: 1rem; top: 1rem; z-index: 100; }
 
-  /* ── LAYOUT ── */
   .page {
     max-width: 680px;
     margin: 0 auto;
@@ -257,6 +255,7 @@
     color: var(--text);
     display: block;
     margin-bottom: 0.2rem;
+    cursor: pointer;
   }
 
   .writing-link:hover { color: var(--accent); text-decoration: none; }
@@ -304,95 +303,6 @@
   footer a { color: var(--text-dim); }
   footer a:hover { color: var(--text-muted); }
 
-  /* ── WRITING MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 50;
-    overflow-y: auto;
-    padding: 3rem 1rem;
-  }
-
-  .modal-overlay.open { display: block; }
-
-  .modal {
-    max-width: 660px;
-    margin: 0 auto;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2.5rem;
-  }
-
-  .modal-close {
-    float: right;
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    cursor: pointer;
-    font-size: 1.2rem;
-    line-height: 1;
-    padding: 0;
-    margin: 0 0 1rem 1rem;
-  }
-
-  .modal-close:hover { color: var(--text-muted); }
-
-  .modal-status {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    margin-bottom: 2rem;
-  }
-
-  .modal-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
-  .modal-body h1, .modal-body h2, .modal-body h3 {
-    font-family: var(--serif);
-    font-weight: 400;
-    color: var(--text);
-    margin: 1.5rem 0 0.5rem;
-  }
-  .modal-body h1 { font-size: 1.4rem; margin-top: 0; }
-  .modal-body h2 { font-size: 1.1rem; }
-  .modal-body h3 { font-size: 1rem; }
-  .modal-body p { margin-bottom: 1rem; }
-  .modal-body code {
-    font-family: var(--mono);
-    font-size: 0.82em;
-    background: var(--bg3);
-    padding: 0.1em 0.3em;
-    border-radius: 2px;
-    color: var(--accent);
-  }
-  .modal-body pre {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-  .modal-body pre code { background: none; padding: 0; }
-  .modal-body blockquote {
-    border-left: 2px solid var(--border-hover);
-    padding-left: 1rem;
-    color: var(--text-dim);
-    font-style: italic;
-    margin: 1rem 0;
-  }
-  .modal-body a { color: var(--link); }
-  .modal-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-
-  .loading-text {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    text-align: center;
-    padding: 2rem 0;
-  }
-
   /* ── CONFIG BANNER ── */
   .config-banner {
     background: var(--bg2);
@@ -408,6 +318,93 @@
   .config-banner strong { color: var(--accent); }
   .config-banner code { color: var(--text-muted); background: var(--bg3); padding: 0.1em 0.3em; border-radius: 2px; }
 
+  .loading-text {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  /* ── POST PAGE ── */
+  .post-back {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display: inline-block;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .post-back:hover { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+
+  .post-status {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .post-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
+  .post-body h1, .post-body h2, .post-body h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--text);
+    margin: 1.5rem 0 0.5rem;
+  }
+  .post-body h1 { font-size: 1.4rem; margin-top: 0; }
+  .post-body h2 { font-size: 1.1rem; }
+  .post-body h3 { font-size: 1rem; }
+  .post-body p { margin-bottom: 1rem; }
+  .post-body code {
+    font-family: var(--mono);
+    font-size: 0.82em;
+    background: var(--bg3);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+  .post-body pre {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .post-body pre code { background: none; padding: 0; }
+  .post-body blockquote {
+    border-left: 2px solid var(--border-hover);
+    padding-left: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  .post-body a { color: var(--link); }
+  .post-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+  .post-body img { max-width: 100%; border-radius: 3px; margin: 1rem 0; }
+
+  /* ── WRITING INDEX PAGE ── */
+  .writing-index-back {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display: inline-block;
+    margin-bottom: 3rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .writing-index-back:hover { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── VIEW STATES ── */
+  #view-home { display: block; }
+  #view-writing { display: none; }
+  #view-post { display: none; }
+
   @media (max-width: 520px) {
     .page { padding: 3rem 1.25rem 6rem; }
     .header { flex-direction: column-reverse; gap: 1rem; }
@@ -419,11 +416,12 @@
 </head>
 <body>
 
-<a href="#main" class="skip">Skip to content</a>
+<a href="#" class="skip">Skip to content</a>
 
+<!-- ══════════════ HOME VIEW ══════════════ -->
+<div id="view-home">
 <main id="main" class="page">
 
-  <!-- ── HEADER ── -->
   <header class="header">
     <div class="header-text">
       <h1>Your Name</h1>
@@ -450,10 +448,8 @@
     <img src="https://via.placeholder.com/72" alt="Your Name" class="avatar" id="avatar-img" />
   </header>
 
-  <!-- ── RESEARCH ── -->
   <section id="research">
     <h2>Research</h2>
-
     <div class="item">
       <h3>Your First Research Project</h3>
       <p class="desc">A brief description of your research — what it does, what problem it solves, and why it matters. Co-authored manuscript in preparation.</p>
@@ -467,7 +463,6 @@
         <a href="#">code</a>
       </div>
     </div>
-
     <div class="item">
       <h3>Your Second Research Project</h3>
       <p class="desc">A brief description of your second research project. Include the key contribution and any notable results or publications.</p>
@@ -482,10 +477,8 @@
     </div>
   </section>
 
-  <!-- ── PROJECTS ── -->
   <section id="projects">
     <h2>Projects</h2>
-
     <div class="item">
       <h3>Your Side Project</h3>
       <p class="desc">A description of your project — what it does, how you built it, and any interesting outcomes. Built with some technologies, runner-up at some competition.</p>
@@ -499,7 +492,6 @@
         <a href="#">code</a>
       </div>
     </div>
-
     <div class="item">
       <h3>Another Project</h3>
       <p class="desc">Real-time telemetry, data pipelines, or whatever your second project is. Briefly describe the hardware, software, and stack you used.</p>
@@ -515,10 +507,8 @@
     </div>
   </section>
 
-  <!-- ── EXPERIENCE ── -->
   <section id="experience">
     <h2>Experience</h2>
-
     <div class="exp-item">
       <div class="exp-logo-placeholder">NEW</div>
       <div class="exp-body">
@@ -527,7 +517,6 @@
         <p class="exp-desc">Brief description of your upcoming role.</p>
       </div>
     </div>
-
     <div class="exp-item">
       <div class="exp-logo-placeholder">ORG</div>
       <div class="exp-body">
@@ -536,7 +525,6 @@
         <p class="exp-desc">Description of your research, the lab, and your contributions.</p>
       </div>
     </div>
-
     <div class="exp-item">
       <div class="exp-logo-placeholder">YC</div>
       <div class="exp-body">
@@ -545,7 +533,6 @@
         <p class="exp-desc">What you built, the tech stack, and scale.</p>
       </div>
     </div>
-
     <div class="exp-item">
       <div class="exp-logo-placeholder">UNI</div>
       <div class="exp-body">
@@ -556,24 +543,14 @@
     </div>
   </section>
 
-  <!-- ── WRITING ── -->
   <section id="writing">
     <h2>Writing</h2>
-
-    <div class="config-banner" id="github-config-banner">
-      <strong>Configure GitHub writing source</strong><br>
-      Edit the <code>GITHUB_CONFIG</code> object at the top of this page's <code>&lt;script&gt;</code> to point to your repo.<br>
-      Set <code>user</code>, <code>repo</code>, and <code>folder</code> — any <code>.md</code> file you add to that folder will appear here automatically.
-    </div>
-
-    <div id="writing-list">
+    <div id="home-writing-list">
       <p class="loading-text">Loading posts…</p>
     </div>
-
-    <p class="writing-all"><a href="#" id="all-writing-link">All writing →</a></p>
+    <p class="writing-all"><a href="#/writing" id="all-writing-link">All writing →</a></p>
   </section>
 
-  <!-- ── HONORS ── -->
   <section id="honors">
     <h2>Honors</h2>
     <p class="honor">2023 Your Fellowship Name</p>
@@ -587,53 +564,118 @@
   </footer>
 
 </main>
+</div>
 
-<!-- ── POST MODAL ── -->
-<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal">
-    <button class="modal-close" id="modal-close" aria-label="Close post">✕</button>
-    <p class="modal-status" id="modal-status"></p>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
+<!-- ══════════════ WRITING INDEX VIEW ══════════════ -->
+<div id="view-writing">
+<main class="page">
+  <button class="writing-index-back" id="writing-back">← home</button>
+  <section>
+    <h2>Writing</h2>
+    <div class="config-banner" id="github-config-banner-writing">
+      <strong>Configure GitHub writing source</strong><br>
+      Edit the <code>GITHUB_CONFIG</code> object in the <code>&lt;script&gt;</code> to point to your repo.
+    </div>
+    <div id="writing-index-list">
+      <p class="loading-text">Loading posts…</p>
+    </div>
+  </section>
+  <footer>
+    <span>© 2026 Your Name</span>
+    <a href="#">Full site →</a>
+  </footer>
+</main>
+</div>
+
+<!-- ══════════════ POST VIEW ══════════════ -->
+<div id="view-post">
+<main class="page">
+  <button class="post-back" id="post-back">← writing</button>
+  <p class="post-status" id="post-status"></p>
+  <div class="post-body" id="post-body"></div>
+  <footer style="margin-top:5rem; padding-top:1.5rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; font-family:var(--mono); color:var(--text-dim);">
+    <span>© 2026 Your Name</span>
+    <a href="#" style="color:var(--text-dim);">Full site →</a>
+  </footer>
+</main>
 </div>
 
 <script>
 /* ═══════════════════════════════════════════════
-   GITHUB CONFIG — edit this to point to your repo
+   GITHUB CONFIG
    ═══════════════════════════════════════════════ */
 const GITHUB_CONFIG = {
-  user:   'bored-arvi',   // e.g. 'rlogger'
-  repo:   'bored-arvi.github.io',         // e.g. 'my-site'
-  folder: 'writing',                // folder containing .md files
-  branch: 'main',                   // branch to read from
+  user:   'bored-arvi',
+  repo:   'bored-arvi.github.io',
+  folder: 'writing',
+  branch: 'main',
 };
-/* ═══════════════════════════════════════════════ */
 
 const RAW = (path) =>
   `https://raw.githubusercontent.com/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${path}`;
 const API = (path) =>
   `https://api.github.com/repos/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/contents/${path}?ref=${GITHUB_CONFIG.branch}`;
 
-async function loadWriting() {
-  const list = document.getElementById('writing-list');
-  const banner = document.getElementById('github-config-banner');
+/* ── State ── */
+let _posts = {};
+let _postsLoaded = false;
+let _postsLoading = false;
 
-  if (GITHUB_CONFIG.user === 'your-github-username') {
-    list.innerHTML = `
-      <div class="writing-item">
-        <a href="#" class="writing-link" onclick="return false">Example Post Title</a>
-        <p class="writing-desc">This is a placeholder post. Configure GITHUB_CONFIG above to load real posts from your GitHub folder.</p>
-        <p class="writing-status">example</p>
-      </div>
-      <div class="writing-item">
-        <a href="#" class="writing-link" onclick="return false">Another Example Post</a>
-        <p class="writing-desc">Add .md files to your GitHub folder and they will appear here automatically.</p>
-        <p class="writing-status">example</p>
-      </div>`;
+/* ── Views ── */
+const views = {
+  home:    document.getElementById('view-home'),
+  writing: document.getElementById('view-writing'),
+  post:    document.getElementById('view-post'),
+};
+
+function showView(name) {
+  Object.keys(views).forEach(k => views[k].style.display = k === name ? 'block' : 'none');
+  window.scrollTo(0, 0);
+}
+
+/* ── Router ── */
+function route() {
+  const hash = window.location.hash || '#';
+
+  if (hash.startsWith('#/post/')) {
+    const slug = hash.slice('#/post/'.length);
+    renderPost(slug);
+  } else if (hash === '#/writing') {
+    renderWritingIndex();
+  } else {
+    showView('home');
+    if (!_postsLoaded && !_postsLoading) loadPosts();
+  }
+}
+
+window.addEventListener('hashchange', route);
+window.addEventListener('load', route);
+
+/* ── Back buttons ── */
+document.getElementById('post-back').addEventListener('click', () => {
+  window.location.hash = '#/writing';
+});
+document.getElementById('writing-back').addEventListener('click', () => {
+  window.location.hash = '#';
+});
+
+/* ── Load posts ── */
+async function loadPosts() {
+  if (_postsLoading) return;
+  _postsLoading = true;
+
+  const isDemo = GITHUB_CONFIG.user === 'your-github-username';
+
+  if (isDemo) {
+    _posts = {
+      'example-post': { slug: 'example-post', title: 'Example Post Title', desc: 'This is a placeholder post. Configure GITHUB_CONFIG to load real posts.', status: 'example', raw: '# Example Post\n\nConfigure GITHUB_CONFIG above to load real posts from your GitHub folder.' },
+      'another-example': { slug: 'another-example', title: 'Another Example Post', desc: 'Add .md files to your GitHub folder and they will appear here automatically.', status: 'example', raw: '# Another Example\n\nAdd `.md` files to your writing folder.' },
+    };
+    _postsLoaded = true;
+    _postsLoading = false;
+    renderHomeWriting();
     return;
   }
-
-  banner.style.display = 'none';
 
   try {
     const res = await fetch(API(GITHUB_CONFIG.folder));
@@ -644,12 +686,6 @@ async function loadWriting() {
       .filter(f => f.name.endsWith('.md'))
       .sort((a, b) => b.name.localeCompare(a.name));
 
-    if (!mds.length) {
-      list.innerHTML = `<p class="loading-text" style="text-align:left">No .md files found in <code>${GITHUB_CONFIG.folder}/</code>.</p>`;
-      return;
-    }
-
-    // Fetch frontmatter/preview for each file
     const posts = await Promise.all(mds.map(async (f) => {
       try {
         const raw = await fetch(RAW(f.path));
@@ -660,24 +696,18 @@ async function loadWriting() {
       }
     }));
 
-    list.innerHTML = posts.map(p => `
-      <div class="writing-item">
-        <a href="#" class="writing-link" data-slug="${p.slug}">${p.title}</a>
-        ${p.desc ? `<p class="writing-desc">${p.desc}</p>` : ''}
-        ${p.status ? `<p class="writing-status">${p.status}</p>` : ''}
-      </div>`).join('');
+    _posts = Object.fromEntries(posts.map(p => [p.slug, p]));
+    _postsLoaded = true;
+    _postsLoading = false;
+    renderHomeWriting();
 
-    // Store posts for modal
-    window._posts = Object.fromEntries(posts.map(p => [p.slug, p]));
-
-    list.querySelectorAll('[data-slug]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        openPost(a.dataset.slug);
-      });
-    });
+    // Hide config banners if configured
+    document.querySelectorAll('.config-banner').forEach(b => b.style.display = 'none');
   } catch (err) {
-    list.innerHTML = `<p class="loading-text" style="text-align:left; color: var(--text-muted)">Could not load posts — check your GitHub config.<br><small>${err.message}</small></p>`;
+    _postsLoading = false;
+    const errMsg = `<p class="loading-text" style="text-align:left; color: var(--text-muted)">Could not load posts — check your GitHub config.<br><small>${err.message}</small></p>`;
+    document.getElementById('home-writing-list').innerHTML = errMsg;
+    document.getElementById('writing-index-list').innerHTML = errMsg;
   }
 }
 
@@ -687,7 +717,6 @@ function parsePost(slug, raw) {
   let status = '';
   let body = raw;
 
-  // Parse YAML-ish frontmatter
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (fmMatch) {
     const fm = fmMatch[1];
@@ -697,10 +726,8 @@ function parsePost(slug, raw) {
     desc = get('description') || get('desc') || get('subtitle') || '';
     status = get('status') || get('draft') || '';
   } else {
-    // First H1 as title fallback
     const h1 = raw.match(/^#\s+(.+)$/m);
     if (h1) title = h1[1];
-    // First non-heading paragraph as desc
     const lines = raw.split('\n').filter(l => l.trim() && !l.startsWith('#'));
     if (lines[0]) desc = lines[0].replace(/[*_`]/g, '').slice(0, 120) + (lines[0].length > 120 ? '…' : '');
   }
@@ -712,40 +739,71 @@ function titleize(slug) {
   return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 }
 
-function openPost(slug) {
-  window.location.hash = `post/${slug}`;
+function writingItemHTML(p, forIndex) {
+  return `<div class="writing-item">
+    <a href="#/post/${p.slug}" class="writing-link">${p.title}</a>
+    ${p.desc ? `<p class="writing-desc">${p.desc}</p>` : ''}
+    ${p.status ? `<p class="writing-status">${p.status}</p>` : ''}
+  </div>`;
 }
 
-function renderPost(slug) {
-  const post = window._posts?.[slug];
-  if (!post) return;
-
-  document.body.innerHTML = `
-    <main class="page">
-      <a href="javascript:history.back()" class="back">← back</a>
-
-      ${post.status ? `<p class="post-status">${post.status}</p>` : ""}
-
-      <div class="post-body">
-        ${marked.parse(post.raw)}
-      </div>
-    </main>
-  `;
-}
-
-window.addEventListener("hashchange", () => {
-  const hash = location.hash;
-
-  if (hash.startsWith("#post/")) {
-    renderPost(hash.replace("#post/", ""));
-  } else {
-    location.reload();
+function renderHomeWriting() {
+  const list = document.getElementById('home-writing-list');
+  const posts = Object.values(_posts);
+  if (!posts.length) {
+    list.innerHTML = `<p class="loading-text" style="text-align:left">No posts found.</p>`;
+    return;
   }
-});
-loadWriting();
-if (location.hash.startsWith("#post/")) {
-  renderPost(location.hash.replace("#post/", ""));
+  // Show only 3 on home
+  list.innerHTML = posts.slice(0, 3).map(p => writingItemHTML(p, false)).join('');
 }
+
+function renderWritingIndex() {
+  showView('writing');
+  const list = document.getElementById('writing-index-list');
+
+  if (!_postsLoaded) {
+    list.innerHTML = `<p class="loading-text">Loading posts…</p>`;
+    loadPosts().then(() => {
+      const posts = Object.values(_posts);
+      list.innerHTML = posts.length
+        ? posts.map(p => writingItemHTML(p, true)).join('')
+        : `<p class="loading-text" style="text-align:left">No posts found.</p>`;
+    });
+    return;
+  }
+
+  const posts = Object.values(_posts);
+  list.innerHTML = posts.length
+    ? posts.map(p => writingItemHTML(p, true)).join('')
+    : `<p class="loading-text" style="text-align:left">No posts found.</p>`;
+
+  document.getElementById('github-config-banner-writing').style.display =
+    GITHUB_CONFIG.user === 'your-github-username' ? 'block' : 'none';
+}
+
+async function renderPost(slug) {
+  showView('post');
+
+  if (!_postsLoaded) {
+    document.getElementById('post-body').innerHTML = `<p class="loading-text">Loading…</p>`;
+    await loadPosts();
+  }
+
+  const post = _posts[slug];
+  if (!post) {
+    document.getElementById('post-status').textContent = '';
+    document.getElementById('post-body').innerHTML = `<p class="loading-text" style="text-align:left; color: var(--text-muted)">Post not found: <code>${slug}</code></p>`;
+    return;
+  }
+
+  document.title = post.title + ' — Your Name';
+  document.getElementById('post-status').textContent = post.status || '';
+  document.getElementById('post-body').innerHTML = marked.parse(post.raw);
+}
+
+/* Initial load of posts for home */
+loadPosts();
 </script>
 </body>
 </html>
